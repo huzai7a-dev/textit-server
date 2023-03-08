@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import jwt from 'jsonwebtoken';
 
 const userSchema = mongoose.Schema(
   {
@@ -33,7 +34,10 @@ const userSchema = mongoose.Schema(
   { timestaps: true }
 );
 
-
+userSchema.methods.getAuthToken = function(){
+  const token = jwt.sign({id:this._id},process.env.JWT_SECRET)
+  return token
+}
 const User = mongoose.model("User", userSchema);
 
 export default User
