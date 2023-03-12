@@ -1,6 +1,6 @@
 import asyncHandler from "express-async-handler";
 import bcrypt from 'bcrypt';
-
+import _ from 'underscore'
 import User from "../models/user.js";
 
 
@@ -14,7 +14,9 @@ const login = asyncHandler(async(req,res)=> {
     if (!validPassword) return res.status(404).send('email or password is incorrect');
 
     const token = user.getAuthToken();
-    res.send(token);
+
+
+    res.status(200).send({ ..._.pick(user, ['_id', 'firstName,', 'lastName', 'email', 'profile', 'idAdmin']),token });
 })
 
 export default login

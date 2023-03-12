@@ -21,7 +21,7 @@ const registerUser = asyncHandler(async (req, res) => {
         
     await user.save();
     const token = user.getAuthToken()
-    res.status(200).header('x-auth-token', token).send(_.pick(user,userFields));
+    res.status(200).header('x-auth-token', token).send({ ..._.pick(user, userFields),message:'Signup Successfull' });
 })
 
-export {registerUser}
+export { registerUser }
